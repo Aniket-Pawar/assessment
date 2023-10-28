@@ -1,0 +1,17 @@
+.api-details {
+    height: 100vh;
+    background-color: #42607b !important;
+
+    .card-color {
+        background-color: #42607b !important;
+    }
+
+    .align-center {
+        text-align: center;
+    }
+    
+    .align-btn {
+        padding-top: 2rem !important;
+        background-color: #42607b !important;
+    }
+}
