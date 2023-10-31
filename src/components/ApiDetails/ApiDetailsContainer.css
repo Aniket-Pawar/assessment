@@ -1,6 +1,7 @@
 .api-details {
     height: 100vh;
     background-color: #42607b !important;
+    font-weight: bold;
 
     .card-color {
         background-color: #42607b !important;

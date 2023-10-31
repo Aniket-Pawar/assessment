@@ -3,6 +3,9 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import Accordion from 'react-bootstrap/Accordion';
 
+import ApiClient from '../../utils/ApiClient';
+//{getProviders, getProviderSpecificApiDetails}
+
 import './ExploreApiContainer.css';
 
 const ExploreApiContainer = () => {
@@ -10,26 +13,18 @@ const ExploreApiContainer = () => {
     const [providerList, setProviderList] = useState([]);
 
     const handleExploreApisButtonClick = () => {
-        fetch('https://api.apis.guru/v2/providers.json')
-            .then(data => {
-                return data.json();
-            })
-            .then(providers => {
-                setProviderList(providers?.data || []);
-            });
+        ApiClient.getProviders().then(providers => {
+            setProviderList(providers?.data || []);
+        });
     };
 
     const handleApiDetailsNavigationAction = (providerName) => {
         if (providerName) {
-            fetch(`https://api.apis.guru/v2/${providerName}.json`)
-                .then(data => {
-                    return data.json();
-                })
-                .then(providerDetails => {
-                    if (providerDetails.apis[providerName]) {
-                        navigate("/apiDetail", { state: { providerDetails: providerDetails.apis[providerName] } });
-                    }
-                });
+            ApiClient.getProviderSpecificApiDetails(providerName).then(providerDetails => {
+                if (providerDetails.apis[providerName]) {
+                    navigate("/apiDetail", { state: { providerDetails: providerDetails.apis[providerName] } });
+                }
+            });
         }
     };
 
@@ -71,3 +66,4 @@ const ExploreApiContainer = () => {
 }
 
 export default ExploreApiContainer;
+
